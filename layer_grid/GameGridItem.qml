@@ -44,6 +44,7 @@ Item {
 
         asynchronous: true
         visible: source != ""
+        //opacity: game.fileExists !== false ? 1 : 0.8
 
         source: game.assets.boxFront
             || game.assets.poster
@@ -63,6 +64,16 @@ Item {
 
         onStatusChanged: if (status === Image.Ready) {
             root.imageLoaded(implicitWidth, implicitHeight);
+        }
+
+        Rectangle {
+            anchors.centerIn: parent
+            visible: game.fileExists !== false ? false : true
+
+            color: "#808080"
+            width: boxFront.width
+            height: boxFront.height
+            opacity: 0.4
         }
     }
 
@@ -89,7 +100,7 @@ Item {
         text: game.title
         wrapMode: Text.Wrap
         horizontalAlignment: Text.AlignHCenter
-        color: "#eee"
+        color: game.fileExists !== false ? "#eee" : "#808080"
         font {
             pixelSize: vpx(16)
             family: globalFonts.sans

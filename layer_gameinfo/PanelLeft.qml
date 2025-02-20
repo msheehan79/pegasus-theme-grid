@@ -154,6 +154,7 @@ Item {
         GamePanelButton {
             id: toggleFavBtn
             text: "Toggle favorite on/off" // FIXME: translate
+            focus: game.fileExists == false
 
             property bool isFavorite: (game && game.favorite) || false
             function toggleFav() {
@@ -161,8 +162,8 @@ Item {
                     game.favorite = !game.favorite;
             }
 
-            KeyNavigation.up: launchBtn
-            KeyNavigation.down: launchBtn
+            KeyNavigation.up: game.fileExists !== false ? launchBtn : null
+            KeyNavigation.down: game.fileExists !== false ? launchBtn : null
             Keys.onPressed: {
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;
@@ -198,10 +199,10 @@ Item {
         }
         GamePanelButton {
             id: launchBtn
-            text: "Launch"
+            text: game.fileExists !== false ? "Launch" : "Game Not Installed"
             lineHeight: 2.5
 
-            focus: true
+            focus: game.fileExists !== false
             Keys.onPressed: {
                 if (api.keys.isAccept(event) && !event.isAutoRepeat) {
                     event.accepted = true;

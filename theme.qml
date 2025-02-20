@@ -167,8 +167,10 @@ FocusScope {
     }
 
     function launchGame() {
-        api.memory.set('collection', topbar.currentCollection.name);
-        api.memory.set('game', gamegrid.currentGame.title);
-        gamegrid.currentGame.launch();
+        if (gamegrid.currentGame.fileExists !== false) {
+            api.memory.set('collection', topbar.currentCollection.name);
+            api.memory.set('game', gamegrid.currentGame.title);
+            gamegrid.currentGame.launch();
+        }
     }
 }
