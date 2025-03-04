@@ -167,6 +167,8 @@ FocusScope {
     }
 
     function launchGame() {
+        if (gamegrid.currentGame.missing === true)
+            return;
         api.memory.set('collection', topbar.currentCollection.name);
         api.memory.set('game', gamegrid.currentGame.title);
         gamegrid.currentGame.launch();
